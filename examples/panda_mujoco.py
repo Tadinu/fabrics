@@ -51,7 +51,7 @@ def initalize_environment(render=True):
     robots  = [
         GenericMujocoRobot(xml_file=xml_file, mode="vel"),
     ]
-    home_config = np.array([-1.0,0,0,-1.57079,0,1.57079,-0.7853, 0.04, 0.04])
+    home_config = np.array([0,-1.57079,0,1.57079,-0.7853, 0.04, 0.04])
 
 
 
@@ -148,8 +148,8 @@ def set_planner(goal: GoalComposition, dt: float):
         urdf = file.read()
     forward_kinematics = GenericURDFFk(
         urdf,
-        rootLink="panda_link0",
-        end_link="panda_link9",
+        root_link="panda_link0",
+        end_links=["panda_link9"],
     )
     planner = ParameterizedFabricPlanner(
         7,

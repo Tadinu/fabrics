@@ -38,7 +38,7 @@ from fabrics.components.leaves.geometry import (CapsuleSphereLeaf,
 from mpscenes.goals.goal_composition import GoalComposition
 from mpscenes.goals.sub_goal import SubGoal
 
-from forwardkinematics.fksCommon.fk_creator import FkCreator
+from forwardkinematics.fksCommon.fk import ForwardKinematics
 from forwardkinematics.urdfFks.generic_urdf_fk import GenericURDFFk
 
 from pyquaternion import Quaternion
@@ -295,17 +295,17 @@ class ParameterizedFabricPlanner(object):
         if isinstance(link_name, ca.SX):
             return link_name
         if isinstance(self._forward_kinematics, GenericURDFFk):
-            fk = self._forward_kinematics.fk(
+            fk = self._forward_kinematics.casadi(
                 self._variables.position_variable(),
-                self._forward_kinematics._rootLink,
-                link_name,
-                positionOnly=True
+                parent_link=self._forward_kinematics._root_link,
+                child_link=link_name,
+                position_only=True
             )
         else:
-            fk = self._forward_kinematics.fk(
+            fk = self._forward_kinematics.casadi(
                 self._variables.position_variable(),
-                link_name,
-                positionOnly=True
+                child_link=link_name,
+                position_only=True
             )
         return fk
 
