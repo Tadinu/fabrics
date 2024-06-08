@@ -9,7 +9,7 @@ repository = "https://tud-amr/fabrics"
 keywords = ["robotics", "motion-planning", "geometry"]
 
 [tool.poetry.dependencies]
-python = "^3.8,<3.10"
+python = "^3.8,<=3.12.3"
 casadi = ">=3.5.5"
 numpy = "^1.15.3"
 geomdl = "^5.3.1"

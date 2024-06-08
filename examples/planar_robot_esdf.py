@@ -217,4 +217,4 @@ def run_planar_robot_esdf(n_steps=5000, render=True):
 
 
 if __name__ == "__main__":
-    res = run_planar_robot_esdf(n_steps=5000, render=bool(sys.argv[1]))
+    res = run_planar_robot_esdf(n_steps=5000, render=True)
