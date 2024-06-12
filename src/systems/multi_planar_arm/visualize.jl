@@ -67,6 +67,7 @@ function visualize_system!(env::MultiPlanarArm)
     env.joint_observables = joints
     env.obstacle_observables = obstacle_observables 
     hidedecorations!(ax)
-    display(fig)
+    #display(fig)
+    visualize(fig)
     return ax, fig
 end

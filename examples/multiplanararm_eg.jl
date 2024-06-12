@@ -1,3 +1,5 @@
+import Pkg
+Pkg.add("Revise")
 using Revise
 using Fabrics
 
