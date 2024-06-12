@@ -5,14 +5,14 @@ function visualize_system!(env::PointMass)
     obstacle_observables = []
     for (i, ob) in enumerate(env.o)
         ox = Observable(SVector{2, Float64}(ob...))
-        scatter!(ax, ox; marker=:circle, markersize=env.or[i], color=:black, markerspace=SceneSpace)
+        scatter!(ax, ox; marker=:circle, markersize=env.or[i], color=:black, markerspace=:data)
         push!(obstacle_observables, ox)
     end
 
-    scatter!(ax, [env.g[1]], [env.g[2]]; marker=:rect, markersize=1.0, color=:green, markerspace=SceneSpace)
+    scatter!(ax, [env.g[1]], [env.g[2]]; marker=:rect, markersize=1.0, color=:green, markerspace=:data)
 
     robot_position_observable = Observable(SVector{2, Float64}(env.x...))
-    scatter!(ax, robot_position_observable; marker=:circle, markersize=env.r, color=:blue, markerspace=SceneSpace)
+    scatter!(ax, robot_position_observable; marker=:circle, markersize=env.r, color=:blue, markerspace=:data)
 
     tail = nothing
     if env.show_tail

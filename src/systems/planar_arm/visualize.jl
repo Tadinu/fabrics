@@ -17,11 +17,11 @@ function visualize_system!(env::PlanarArm)
     obstacle_observables = []
     for (i, ob) in enumerate(obstacle_positions)  
         ox =  Observable(SVector{2,Float64}(ob...))
-        scatter!(ax, ox; marker=:circle, markersize=obstacle_radii[i], markerspace=SceneSpace, color=:black) 
+        scatter!(ax, ox; marker=:circle, markersize=obstacle_radii[i], markerspace=:data, color=:black) 
         push!(obstacle_observables, ox)
         if env.show_contacts
             keypoints = get_keypoints(collect(ox.val), 0.5*obstacle_radii[i],N=8) 
-            scatter!(ax, [k[1] for k in keypoints], [k[2] for k in keypoints]; marker=:circle, markerspace=SceneSpace, markersize=0.25, color=:red) 
+            scatter!(ax, [k[1] for k in keypoints], [k[2] for k in keypoints]; marker=:circle, markerspace=:data, markersize=0.25, color=:red) 
         end
     end 
     θ = env.θ
@@ -30,11 +30,11 @@ function visualize_system!(env::PlanarArm)
     joints = Observable([SVector(p1[1], p1[2]), SVector(p2[1], p2[2])])
 
     lines!(ax, links; linewidth=5, color=:purple)
-    scatter!(ax, joints; marker=:circle, color=:black, markersize=0.3, markerspace=SceneSpace)
-    scatter!(ax, [0.0], [0.0]; marker=:rect, markersize=0.5, color=:black, markerspace=SceneSpace)
+    scatter!(ax, joints; marker=:circle, color=:black, markersize=0.3, markerspace=:data)
+    scatter!(ax, [0.0], [0.0]; marker=:rect, markersize=0.5, color=:black, markerspace=:data)
    
     og = SVector{2,Float64}(goal_position...)  
-    scatter!(ax, og; marker=:rect, markersize=0.5, markerspace=SceneSpace, color=:green)
+    scatter!(ax, og; marker=:rect, markersize=0.5, markerspace=:data, color=:green)
 
     env.link_observables = links 
     env.joint_observables = joints
