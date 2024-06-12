@@ -7,26 +7,26 @@ using LinearAlgebra
 using StaticArrays
 using Colors 
 
-include("systems/point_mass/types.jl")
-include("systems/point_mass/visualize.jl")
-include("systems/point_mass/step.jl")
-include("systems/point_mass/fabric.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/point_mass/types.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/point_mass/visualize.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/point_mass/step.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/point_mass/fabric.jl")
 
-include("systems/planar_arm/types.jl")
-include("systems/planar_arm/visualize.jl")
-include("systems/planar_arm/step.jl")
-include("systems/planar_arm/fabric.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/planar_arm/types.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/planar_arm/visualize.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/planar_arm/step.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/planar_arm/fabric.jl")
 
-include("systems/multi_planar_arm/types.jl")
-include("systems/multi_planar_arm/visualize.jl")
-include("systems/multi_planar_arm/step.jl")
-include("systems/multi_planar_arm/fabric.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/multi_planar_arm/types.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/multi_planar_arm/visualize.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/multi_planar_arm/step.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/multi_planar_arm/fabric.jl")
 
 
-include("systems/picklerick/types.jl")
-include("systems/picklerick/visualize.jl")
-include("systems/picklerick/step.jl")
-include("systems/picklerick/fabric.jl") 
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/picklerick/types.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/picklerick/visualize.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/picklerick/step.jl")
+include("/media/ducthan/376b23a1-5a02-4960-b3ca-24b2fcef8f89/4_REMANIAN_MANIFOLD/RMP_JULIA/Fabrics.jl/src/systems/picklerick/fabric.jl") 
 
 export visualize_system!,
        step!,
