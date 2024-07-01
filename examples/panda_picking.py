@@ -158,7 +158,7 @@ def set_planner(degrees_of_freedom: int = 7):
     forward_kinematics = GenericURDFFk(
         urdf,
         root_link="panda_link0",
-        end_links="panda_leftfinger",
+        end_links=["panda_leftfinger"],
     )
     planner = ParameterizedFabricPlanner(
         degrees_of_freedom,
@@ -179,6 +179,7 @@ def set_planner(degrees_of_freedom: int = 7):
         collision_links=collision_links,
         goal=goal,
         number_obstacles=0,
+        number_dynamic_obstacles=len(collision_links),
         limits=panda_limits,
     )
     planner.concretize(mode='vel', time_step=0.01)

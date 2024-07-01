@@ -106,10 +106,7 @@ class SelfCollisionLeaf(GenericGeometryLeaf):
         collision_link_1: str,
         collision_link_2: str,
     ):
-        self_collision_name = (
-                f"self_collision_{collision_link_1}_"
-                "{collision_link_2}"
-        )
+        self_collision_name = f"self_collision_{collision_link_1}_{collision_link_2}"
         super().__init__(
             parent_variables, self_collision_name, forward_kinematics
         )

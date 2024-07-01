@@ -257,6 +257,7 @@ class ParameterizedFabricPlanner(object):
     def get_forward_kinematics(self, link_name, position_only: bool = True) -> ca.SX:
         if isinstance(link_name, ca.SX):
             return link_name
+
         fk = self._forward_kinematics.casadi(
                 self._variables.position_variable(),
                 link_name,
@@ -437,8 +438,7 @@ class ParameterizedFabricPlanner(object):
         fk = fk_2 - fk_1
         if is_sparse(fk):
             message = (
-                    f"Expression {fk} for links {collision_link_1} "
-                    "and {collision_link_2} is sparse and thus skipped."
+                    f"Expression {fk} for links {collision_link_1} and {collision_link_2} is sparse and thus skipped."
             )
             logging.warning(message.format_map(locals()))
         geometry = SelfCollisionLeaf(self._variables, fk, collision_link_1, collision_link_2)
@@ -618,8 +618,8 @@ class ParameterizedFabricPlanner(object):
         for self_collision_key, self_collision_list in self_collision_pairs.items():
             for self_collision_link in self_collision_list:
                 self.add_spherical_self_collision_geometry(
-                        self_collision_link,
                         self_collision_key,
+                        self_collision_link
                 )
 
         if limits:
@@ -638,6 +638,7 @@ class ParameterizedFabricPlanner(object):
 
     def get_differential_map(self, sub_goal_index: int, sub_goal: SubGoal):
         if sub_goal.type() == 'staticJointSpaceSubGoal':
+            print("STATIC_JOINT_SPACE", self._variables)
             return self._variables.position_variable()[sub_goal.indices()]
         else:
             fk_child = self.get_forward_kinematics(sub_goal.child_link())
@@ -670,6 +671,8 @@ class ParameterizedFabricPlanner(object):
                 R = compute_rotation_matrix(angles)
                 fk_child = ca.mtimes(R, fk_child)
                 fk_parent = ca.mtimes(R, fk_parent)
+            #print("fk_child", sub_goal.child_link(), fk_child[sub_goal.indices()], sub_goal.indices())
+            #print("fk_parent", sub_goal.parent_link(),  fk_parent[sub_goal.indices()], sub_goal.indices())
             return fk_child[sub_goal.indices()] - fk_parent[sub_goal.indices()]
 
 
@@ -703,10 +706,10 @@ class ParameterizedFabricPlanner(object):
                 + (1 - eta) * self._forced_speed_controlled_geometry._alpha
             )
             beta_subst = self._damper.substitute_beta(-a_ex, -self._geometry._alpha)
-            xddot = self._forced_geometry._xddot - (a_ex + beta_subst) * (
-                self._geometry.xdot()
+            xddot = self._forced_geometry._xddot - (a_ex + beta_subst) * \
+                self._geometry.xdot() \
                 - ca.mtimes(self._forced_geometry.Minv(), self._target_velocity)
-            )
+
             #xddot = self._forced_geometry._xddot
         elif self._config.forcing_type == 'execution-energy':
             logging.warn("No forcing term, using pure geoemtry with energization.")

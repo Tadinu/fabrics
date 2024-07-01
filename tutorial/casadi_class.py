@@ -54,9 +54,9 @@ class Geometry(object):
 def update(num, x1, x2, y1, y2, line1, line2, point1, point2):
     start = max(0, num - 100)
     line1.set_data(x1[start:num], y1[start:num])
-    point1.set_data(x1[num], y1[num])
+    point1.set_data(x1, y1)
     line2.set_data(x2[start:num], y2[start:num])
-    point2.set_data(x2[num], y2[num])
+    point2.set_data(x2, y2)
     return line1, point1, line2, point2
 
 def plotTraj(sol, ax, fig):

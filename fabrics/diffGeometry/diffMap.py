@@ -54,6 +54,9 @@ class DifferentialMap:
     def qdot(self):
         return self._vars.velocity_variable()
 
+    def phi(self) -> ca.SX:
+        return self._phi
+
 class DynamicDifferentialMap(DifferentialMap):
     _phi_dot: ca.SX
     _Jdotqdot: ca.SX

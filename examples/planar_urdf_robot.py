@@ -158,8 +158,8 @@ def initalize_environment(render=True):
             "weight": 1.0,
             "is_primary_goal": True,
             "indices": [1, 2],
-            "parent_link": "panda_link0",
-            "child_link": "panda_link4",
+            "parent_link": "link0",
+            "child_link": "link4",
             "desired_position": [1.2, 1.4],
             "epsilon": 0.05,
             "type": "staticSubGoal",
@@ -224,17 +224,17 @@ def set_planner(goal: GoalComposition, degrees_of_freedom: int = 2):
         urdf = file.read()
     forward_kinematics = GenericURDFFk(
         urdf,
-        root_link="panda_link0",
-        end_links=["panda_link4"]
+        root_link="link0",
+        end_links=["link4"]
     )
     planner = ParameterizedFabricPlanner(
         degrees_of_freedom,
         forward_kinematics=forward_kinematics
     )
     q = planner.variables.position_variable()
-    collision_links = ['panda_link1', 'panda_link4']
+    collision_links = ['link1', 'link4']
     self_collision_pairs = {}
-    panda_limits = [
+    limits = [
             [-2.8973, 2.8973],
             [-1.7628, 1.7628],
         ]
@@ -244,13 +244,13 @@ def set_planner(goal: GoalComposition, degrees_of_freedom: int = 2):
         self_collision_pairs=self_collision_pairs,
         goal=goal,
         number_obstacles=2,
-        #limits=panda_limits,
+        #limits=limits,
     )
     planner.concretize()
     return planner
 
 
-def run_panda_example(n_steps=5000, render=True):
+def run_example(n_steps=5000, render=True):
     (env, goal) = initalize_environment(render)
     planner = set_planner(goal)
     action = np.zeros(env.n())
@@ -268,16 +268,16 @@ def run_panda_example(n_steps=5000, render=True):
             radius_obst_0=ob_robot['FullSensor']['obstacles'][2]['size'],
             x_obst_1=ob_robot['FullSensor']['obstacles'][3]['position'],
             radius_obst_1=ob_robot['FullSensor']['obstacles'][3]['size'],
-            radius_body_panda_link1=0.2,
-            radius_body_panda_link4=0.2,
+            #radius_body_link1=0.2,
+            radius_body_link4=0.2,
         )
         q = ob_robot["joint_state"]["position"]
         ob, *_ = env.step(action)
-        add_toroidal_point(env, q[0], q[1])
-        add_spherical_point(env, q[0], q[1])
+        #add_toroidal_point(env, q[0], q[1])
+        #add_spherical_point(env, q[0], q[1])
     env.close()
     return {}
 
 
 if __name__ == "__main__":
-    res = run_panda_example(n_steps=5000)
+    res = run_example(n_steps=5000)
