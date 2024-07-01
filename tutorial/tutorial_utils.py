@@ -10,7 +10,7 @@ def update(num, lines, points, coords):
     outputs = []
     for i in range(len(lines)):
         lines[i].set_data(coords[i]['x'][start:num], coords[i]['y'][start:num])
-        points[i].set_data(coords[i]['x'][num], coords[i]['y'][num])
+        points[i].set_data(coords[i]['x'], coords[i]['y'])
         outputs.append(lines[i])
         outputs.append(points[i])
     return outputs

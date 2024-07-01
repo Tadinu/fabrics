@@ -19,23 +19,33 @@ class CasadiFunctionWrapper(object):
         self._inputs = variables.asDict()
         self._expressions = expressions
         self._argument_dictionary = variables.parameters_values()
+
+        self._input_values = []
+        self._input_keys = []
+        self._expression_keys = []
+        self._expression_values = []
         self.create_function()
 
     def create_function(self):
-        input_values = []
-        input_keys = []
-        expression_keys = []
-        expression_values = []
         for input_key, input_value in self._inputs.items():
-            input_keys.append(input_key)
-            input_values.append(input_value)
+            self._input_keys.append(input_key)
+            self._input_values.append(input_value)
         for expression_key, expression_value in self._expressions.items():
-            expression_keys.append(expression_key)
-            expression_values.append(expression_value)
-        self._function = ca.Function(self._name, input_values, expression_values, input_keys, expression_keys)
+            self._expression_keys.append(expression_key)
+            self._expression_values.append(expression_value)
+        self.print_self()
+        self._function = ca.Function(self._name, self._input_values, self._expression_values, self._input_keys, self._expression_keys)
 
     def function(self) -> ca.Function:
         return self._function
+
+    def print_self(self):
+        print("Func Name", self._name)
+        print("Input names", self._input_keys)
+        print("Input values", self._input_values)
+        print("Expression names", self._expression_keys)
+        #print("Expression values", self._expression_values)
+        print("Arg dict", self._argument_dictionary)
 
     def serialize(self, file_name):
         with bz2.BZ2File(file_name, 'w') as f:
@@ -45,6 +55,10 @@ class CasadiFunctionWrapper(object):
     def evaluate(self, **kwargs):
         self.process_inputs(**kwargs)
         try:
+            #print(self._function.generate())
+            #print(len(self._function.name_in()), self._function.name_in())
+            #print(len(self._function.name_out()), self._function.name_out())
+            #print(self._argument_dictionary)
             output_dict = self._function(**self._argument_dictionary)
         except NotImplementedError:
             expected_inputs = list(self._inputs.keys())

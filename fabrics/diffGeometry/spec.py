@@ -137,6 +137,16 @@ class Spec:
         x = self._vars.position_variable()
         xdot = self._vars.velocity_variable()
         M_pulled_subst_x = ca.substitute(M_pulled, x, dm._phi)
+
+        #dm_phidot = dm.phidot()
+        #print(xdot, dm_phidot)
+        #print(xdot.size(), dm_phidot.size())
+        #print(xdot.sparsity(), dm_phidot.sparsity())
+        #for i in range(xdot.size1()):
+        #    print(i, xdot[i], dm_phidot[i])
+        #    print("sparsity", i, xdot[i].sparsity(), dm_phidot[i].sparsity())
+        #    print("dm_phidot", i, dm_phidot[i].is_scalar(), "nnz: ", dm_phidot[i].nnz())
+
         M_pulled_subst_x_xdot = ca.substitute(
             M_pulled_subst_x, xdot, dm.phidot()
         )
