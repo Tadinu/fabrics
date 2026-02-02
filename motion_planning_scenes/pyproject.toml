@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "mpscenes"
+version = "1.0.0"
+description = "Generic motion planning scenes, including goals and obstacles."
+authors = ["Max <m.spahn@tudelft.nl>"]
+readme = "README.md"
+homepage = "https://github.com/maxspahn/motion_planning_scenes.git"
+repository = "https://github.com/maxspahn/motion_planning_scenes.git"
+  
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^2.2.0"
+geomdl = "^5.3.1"
+sympy = "^1.13.3"
+pyyaml = "^6.0.2"
+omegaconf = "^2.3.0"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.6.0"
+pytest = "^8.3.4"
+pylint = "^3.3.2"
+
+[tool.poetry.group.doc]
+optional = true
+
+
+[tool.poetry.group.doc.dependencies]
+sphinx = "*"
+sphinx-rtd-theme = "^2.0.0"
+sphinxcontrib-napoleon = "^0.7"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

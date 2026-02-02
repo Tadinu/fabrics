@@ -14,6 +14,7 @@ from mpscenes.obstacles.dynamic_sphere_obstacle import DynamicSphereObstacle
 
 from fabrics.planner.parameterized_planner import ParameterizedFabricPlanner
 
+
 def initalize_environment(render=True):
     """
     Initializes the simulation environment.
@@ -24,7 +25,7 @@ def initalize_environment(render=True):
     robots = [
         GenericUrdfReacher(urdf="panda.urdf", mode="acc"),
     ]
-    env: UrdfEnv  = UrdfEnv(
+    env: UrdfEnv = UrdfEnv(
         dt=0.01, robots=robots, render=render
     ).unwrapped
     full_sensor = FullSensor(
@@ -38,11 +39,11 @@ def initalize_environment(render=True):
         "geometry": {"trajectory": ["-1 + t * 0.1", "-0.6", "0.4"], "radius": 0.1},
     }
     obst1 = DynamicSphereObstacle(name="dynamicObst", content_dict=dynamic_obst_dict)
-    static_obst_dict = {
+    dynamic_obst_dict = {
         "type": "sphere",
-        "geometry": {"position": [0.4, -0.3, 0.6], "radius": 0.1},
+        "geometry": {"trajectory": ["0.4", "-1 + t * 0.1", "0.6"], "radius": 0.1},
     }
-    obst2 = SphereObstacle(name="staticObst", content_dict=static_obst_dict)
+    obst2 = DynamicSphereObstacle(name="staticObst", content_dict=dynamic_obst_dict)
     # Definition of the goal.
     goal_dict = {
         "subgoal0": {
@@ -125,14 +126,14 @@ def set_planner(goal: GoalComposition, degrees_of_freedom: int = 7):
     collision_links = ['panda_link9', 'panda_link3', 'panda_link4']
     self_collision_pairs = {}
     panda_limits = [
-            [-2.8973, 2.8973],
-            [-1.7628, 1.7628],
-            [-2.8973, 2.8973],
-            [-3.0718, -0.0698],
-            [-2.8973, 2.8973],
-            [-0.0175, 3.7525],
-            [-2.8973, 2.8973]
-        ]
+        [-2.8973, 2.8973],
+        [-1.7628, 1.7628],
+        [-2.8973, 2.8973],
+        [-3.0718, -0.0698],
+        [-2.8973, 2.8973],
+        [-0.0175, 3.7525],
+        [-2.8973, 2.8973]
+    ]
     # The planner hides all the logic behind the function set_components.
     planner.set_components(
         collision_links=collision_links,
@@ -144,12 +145,13 @@ def set_planner(goal: GoalComposition, degrees_of_freedom: int = 7):
     planner.concretize()
     return planner
 
+
 def parse_runtime_arguments(ob_robot: dict) -> dict:
     arguments = dict(
-        x_obsts_dynamic = [ob_robot['FullSensor']['obstacles'][2]['position']],
-        xdot_obsts_dynamic = [ob_robot['FullSensor']['obstacles'][2]['velocity']],
-        xddot_obsts_dynamic = [ob_robot['FullSensor']['obstacles'][2]['acceleration']],
-        radius_obsts_dynamic = [ob_robot['FullSensor']['obstacles'][2]['size']],
+        x_obsts_dynamic=[ob_robot['FullSensor']['obstacles'][2]['position']],
+        xdot_obsts_dynamic=[ob_robot['FullSensor']['obstacles'][2]['velocity']],
+        xddot_obsts_dynamic=[ob_robot['FullSensor']['obstacles'][2]['acceleration']],
+        radius_obsts_dynamic=[ob_robot['FullSensor']['obstacles'][2]['size']],
         radius_body_panda_link3=0.02,
         radius_body_panda_link4=0.02,
         radius_body_panda_link9=0.2,
@@ -163,16 +165,12 @@ def parse_runtime_arguments(ob_robot: dict) -> dict:
     return arguments
 
 
-
-
-
 def run_panda_example(n_steps=5000, render=True):
     (env, goal) = initalize_environment(render)
     planner = set_planner(goal)
     action = np.zeros(7)
     ob, *_ = env.step(action)
     env.reconfigure_camera(1.4000027179718018, 45.20001983642578, -45.000038146972656, (0.0, 0.0, 0.0))
-
 
     for _ in range(n_steps):
         ob_robot = ob['robot_0']

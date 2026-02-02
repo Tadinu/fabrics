@@ -1,0 +1,10 @@
+.python-version
+__pycache__
+.python-version
+forwardkinematics.egg-info/
+dist
+*.swp
+.coverage
+.htmlcov
+.vim
+tags
