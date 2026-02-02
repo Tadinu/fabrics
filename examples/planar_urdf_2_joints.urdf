@@ -94,7 +94,7 @@
     <dynamics damping="0.0" friction="0.0"/>
     <!-- end for simulation -->
   </joint>
-  <link name="link4">
+  <link name="link3">
     <visual>
       <origin xyz="0 0 0.005" rpy="0 0 0"/>
       <geometry>
@@ -114,10 +114,10 @@
     </inertial>
     <!-- end for simulation -->
   </link>
-  <joint name="joint4" type="fixed">
+  <joint name="joint3" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 1.2"/>
     <parent link="link2"/>
-    <child link="link4"/>
+    <child link="link3"/>
     <axis xyz="1 0 0"/>
   </joint>
   <!-- end for simulation -->

@@ -170,7 +170,7 @@ def initalize_environment(render=True):
             "is_primary_goal": True,
             "indices": [1, 2],
             "parent_link": "link0",
-            "child_link": "link4",
+            "child_link": "link3",
             "desired_position": [1.0, 1.2],
             "epsilon": 0.1,
             "type": "staticSubGoal",
@@ -237,14 +237,14 @@ def set_planner(goal: GoalComposition, dt: float):
     forward_kinematics = GenericURDFFk(
         urdf,
         root_link="link0",
-        end_links=["link4"]
+        end_links=["link3"]
     )
     planner = ParameterizedFabricPlanner(
         dof=degrees_of_freedom,
         forward_kinematics=forward_kinematics
     )
     q = planner.variables.position_variable()
-    collision_links = ['link1', 'link4']
+    collision_links = ['link1', 'link3']
     self_collision_pairs = {}
     # The planner hides all the logic behind the function set_components.
     planner.set_components(
@@ -281,7 +281,7 @@ def run_example(n_steps=5000, render=True):
             x_obst_1=obstacle_pos(1),
             radius_obst_1=obstacle_size(1),
             #radius_body_link1=0.2,
-            radius_body_link4=0.2,
+            radius_body_link3=0.2,
         )
         q = joint_state["position"]
         ob, *_ = env.step(action)
